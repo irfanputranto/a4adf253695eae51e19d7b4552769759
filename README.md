@@ -126,7 +126,20 @@ EMAIL_FROM_NAME=Email_API
      }
      ```
 
-4. **Delete Transaction:**
+4. **Update Transaction:**
+   - **URL:** `http://localhost/transaksi/:id`
+   - **Method:** `PUT`
+   - **Authorization:** `Bearer Token`
+   - **Body:**
+     ```json
+     {
+         "nama_barang": "detergent update",
+         "qty": 4,
+         "harga": 455
+     }
+     ```
+
+5. **Delete Transaction:**
    - **URL:** `http://localhost/transaksi/:id`
    - **Method:** `DELETE`
    - **Authorization:** `Bearer Token`

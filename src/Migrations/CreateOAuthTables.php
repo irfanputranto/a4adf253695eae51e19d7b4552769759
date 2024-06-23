@@ -20,14 +20,6 @@ class CreateOAuthTables {
 
     public function up() {
         $queries = [
-            "CREATE TABLE IF NOT EXISTS oauth_clients (
-                client_id TEXT NOT NULL,
-                client_secret TEXT,
-                redirect_uri TEXT,
-                grant_types TEXT,
-                scope TEXT,
-                user_id TEXT
-            )",
             "CREATE TABLE IF NOT EXISTS oauth_access_tokens (
                 access_token TEXT NULL,
                 google_id TEXT NULL,
