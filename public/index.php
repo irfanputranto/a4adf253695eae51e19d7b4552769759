@@ -198,6 +198,37 @@ if ($path === '/transaksi/' . $id && $requestMethod === 'GET') {
     }
 }
 
+if ($path === '/transaksi/' . $id && $requestMethod === 'PUT') {
+    if ($authorizationHeader && strpos($authorizationHeader, 'Bearer ') !== false) {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $nama_barang = $data['nama_barang'];
+        $qty = $data['qty'];
+        $harga = $data['harga'];
+
+        $request = getallheaders();
+        $middleware = new OAuthMiddleware();
+        $middlewares = $middleware->handle($request);
+
+        if (empty($middlewares['error'])) {
+            echo json_encode(['error' => 'Unauthorized']);
+            exit;
+        }
+        if ($middlewares['error'] === true) {
+            $data = $transaksiController->update($id, $nama_barang, $qty, $harga);
+            echo json_encode(['status' => 'Ok', 'data' => $data]);
+            exit;
+        } else {
+            http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+        }
+    } else {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+}
+
 if ($path === '/transaksi/' . $id && $requestMethod === 'DELETE') {
     if ($authorizationHeader && strpos($authorizationHeader, 'Bearer ') !== false) {
 

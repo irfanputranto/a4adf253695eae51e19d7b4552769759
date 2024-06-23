@@ -58,6 +58,11 @@ To run the email worker via cron, use the following command:
 php src/Workers/EmailWorkers.php
 ```
 
+Or start serve.sh
+```bash
+sh .\worker.sh
+```
+
 ### Environment Configuration
 Copy the example environment file and fill in the necessary credentials:
 ```bash

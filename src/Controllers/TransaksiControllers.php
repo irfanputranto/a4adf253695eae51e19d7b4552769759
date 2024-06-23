@@ -48,10 +48,35 @@ class TransaksiControllers {
 
         if (isset($dtUser['email'])) {
             $mailService = new MailService();
-            $mailService->queueEmail($dtUser['email'], 'Transaksi ' . $newTransaksi['nama_barang'], json_encode($newTransaksi, true));
+            $mailService->queueEmail($dtUser['email'], 'Transaksi Baru #' . $newTransaksi['nama_barang'], json_encode($newTransaksi, true));
         }
 
         return $newTransaksi;
+    }
+
+    public function update($id, $namaBarang, $qty, $harga) {
+        $stmtSelect = $this->db->prepare('SELECT * FROM transaksi WHERE id = ?');
+        $stmtSelect->execute([$id]);
+        $updateTransaksi = $stmtSelect->fetch(PDO::FETCH_ASSOC);
+
+        if ($updateTransaksi) {
+            $total = $qty * $harga;
+            $stmt = $this->db->prepare('UPDATE transaksi SET nama_barang = ?, qty = ?, harga = ?, total = ? WHERE id = ?');
+            $stmt->execute([$namaBarang, $qty, $harga, $total, $id]);
+            
+            $user = $this->db->prepare('SELECT * FROM users WHERE google_id = ?');
+            $user->execute([$_SESSION['googleId']]);
+            $dtUser = $user->fetch(PDO::FETCH_ASSOC);
+            
+            if (isset($dtUser['email'])) {
+                $mailService = new MailService();
+                $mailService->queueEmail($dtUser['email'], 'Transaksi Update #' . $updateTransaksi['nama_barang'], json_encode($updateTransaksi, true));
+            }
+            
+            return $updateTransaksi;
+        }
+
+        return ['message' => 'Transaksi dengan Id ' . $id . ' Tidak ada', 'error' => 'Not Found'];
     }
 
     public function delete($id = null)

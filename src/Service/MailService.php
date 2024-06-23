@@ -30,14 +30,25 @@ class MailService {
 
         try {
             $data = json_decode($body, true);
-            $nmaBrang = str_replace('"', '', json_encode($data['nama_barang'], JSON_PRETTY_PRINT));
-            $template = $this->loadTemplate(__DIR__ . '/../Email/email_template.html', [
-                'subject' => $subject,
-                'nama_barang' => $nmaBrang,
-                'qty' => json_encode($data['qty'], JSON_PRETTY_PRINT),
-                'harga' => json_encode($data['harga'], JSON_PRETTY_PRINT),
-                'total' => json_encode($data['total'], JSON_PRETTY_PRINT),
-            ]);
+
+            if (is_array($data)) {
+                $nmaBrang = str_replace('"', '', json_encode($data['nama_barang'], JSON_PRETTY_PRINT));
+                $template = $this->loadTemplate(__DIR__ . '/../Email/email_template.html', [
+                    'subject' => $subject,
+                    'nama_barang' => $nmaBrang,
+                    'qty' => json_encode($data['qty'], JSON_PRETTY_PRINT),
+                    'harga' => json_encode($data['harga'], JSON_PRETTY_PRINT),
+                    'total' => json_encode($data['total'], JSON_PRETTY_PRINT),
+                ]);
+            } else {
+                $template = $this->loadTemplate(__DIR__ . '/../Email/email_template.html', [
+                    'subject' => $subject,
+                    'nama_barang' => "",
+                    'qty' => "",
+                    'harga' => "",
+                    'total' => "",
+                ]);
+            }
             
             $mail->isSMTP();
             $mail->Host = $_ENV['EMAIL_HOST'];
