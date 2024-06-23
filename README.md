@@ -12,6 +12,25 @@ Before you begin, ensure you have the following software installed on your machi
 - [PostgreSQL 15](https://www.postgresql.org/)
 - [Composer](https://getcomposer.org/)
 
+### Clone Repository
+Clone this repository to your local directory:
+
+   ```bash
+   mkdir email-api-levartech
+   cd email-api-levartech
+   git clone https://github.com/irfanputranto/a4adf253695eae51e19d7b4552769759.git .
+   ```
+
+Run Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+
+### Using Docker
+- Docker: [Instal Docker](https://docs.docker.com/get-docker/)
+- Docker Compose: [Instal Docker Compose](https://docs.docker.com/compose/install/)
+
+
 ### Run Composer
 
 ```bash

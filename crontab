@@ -1,0 +1,1 @@
+* * * * * root php /var/www/html/src/Workers/EmailWorkers.php >> /var/log/cron.log 2>&1

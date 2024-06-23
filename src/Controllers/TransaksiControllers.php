@@ -55,6 +55,10 @@ class TransaksiControllers {
     }
 
     public function update($id, $namaBarang, $qty, $harga) {
+        if (!$id) {
+            return ['message' => 'Id Kosong', 'error' => 'Not Found'];
+        }
+
         $stmtSelect = $this->db->prepare('SELECT * FROM transaksi WHERE id = ?');
         $stmtSelect->execute([$id]);
         $updateTransaksi = $stmtSelect->fetch(PDO::FETCH_ASSOC);
@@ -67,13 +71,17 @@ class TransaksiControllers {
             $user = $this->db->prepare('SELECT * FROM users WHERE google_id = ?');
             $user->execute([$_SESSION['googleId']]);
             $dtUser = $user->fetch(PDO::FETCH_ASSOC);
+
+            $afterUpdateStmt = $this->db->prepare('SELECT * FROM transaksi WHERE id = ?');
+            $afterUpdateStmt->execute([$id]);
+            $afterUpdate = $afterUpdateStmt->fetch(PDO::FETCH_ASSOC);
             
             if (isset($dtUser['email'])) {
                 $mailService = new MailService();
-                $mailService->queueEmail($dtUser['email'], 'Transaksi Update #' . $updateTransaksi['nama_barang'], json_encode($updateTransaksi, true));
+                $mailService->queueEmail($dtUser['email'], 'Transaksi Update #' . $afterUpdate['nama_barang'], json_encode($afterUpdate, true));
             }
             
-            return $updateTransaksi;
+            return $afterUpdate;
         }
 
         return ['message' => 'Transaksi dengan Id ' . $id . ' Tidak ada', 'error' => 'Not Found'];
@@ -81,6 +89,10 @@ class TransaksiControllers {
 
     public function delete($id = null)
     {
+        if (!$id) {
+            return ['message' => 'Id Kosong', 'error' => 'Not Found'];
+        }
+
         if ($id > 0) {
         $stmtCheck = $this->db->prepare('SELECT * FROM transaksi WHERE id = ?');
         $stmtCheck->execute([$id]);

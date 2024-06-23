@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+    app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: app-levartech
+      volumes:
+        - ./nginx:/etc/nginx/conf.d
+        - ./:/var/www/html
+      ports:
+       - 80:80
+       - 443:443
+      depends_on:
+        - db
+
+    db:
+      container_name: postgresql-levartech
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: email_db
+      ports:
+        - "5432:5432"
+
+    pgadmin:
+      container_name: pgadmin4-levartech
+      image: dpage/pgadmin4
+      restart: always
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: root
+      ports:
+        - "5050:80"
+      depends_on:
+        - db
+
