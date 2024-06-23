@@ -96,14 +96,17 @@ EMAIL_FROM_NAME=Email_API
 1. **Get All Transactions:**
    - **URL:** `http://localhost/transaksi`
    - **Method:** `GET`
+   - **Authorization:** `Bearer Token`
 
 2. **Get Transaction by ID:**
    - **URL:** `http://localhost/transaksi/:id`
    - **Method:** `GET`
+   - **Authorization:** `Bearer Token`
 
 3. **Create Transaction:**
    - **URL:** `http://localhost/transaksi`
    - **Method:** `POST`
+   - **Authorization:** `Bearer Token`
    - **Body:**
      ```json
      {
@@ -116,6 +119,7 @@ EMAIL_FROM_NAME=Email_API
 4. **Delete Transaction:**
    - **URL:** `http://localhost/transaksi/:id`
    - **Method:** `DELETE`
+   - **Authorization:** `Bearer Token`
 
 ## System Design
 
