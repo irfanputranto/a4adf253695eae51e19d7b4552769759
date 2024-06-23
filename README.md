@@ -44,7 +44,12 @@ Or you can use sh using migration
 ### Running the Server
 Start the PHP built-in server:
 ```bash
-php -S localhost:8000 -t public
+php -S localhost:80 -t public
+```
+
+Or start serve.sh
+```bash
+sh .\serve.sh
 ```
 
 ### Email Worker
