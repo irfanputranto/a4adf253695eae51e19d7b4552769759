@@ -129,40 +129,6 @@ EMAIL_FROM_NAME=Email_API
 ## System Design
 
 Below is a brief overview of the system design, showing the interactions between various components of the system:
-
-```
-+-------------+       +----------------+       +---------------+       +----------------+       +--------------+
-|   Client    | <---> |    Web Server  | <---> |  PostgreSQL   | <---> |  Worker Server | <---> |  Email Server|
-+-------------+       +----------------+       +---------------+       +----------------+       +--------------+
-       |                      |                       |                       |                       |
-       |   OAuth Login        |                       |                       |                       |
-       |--------------------> |                       |                       |                       |
-       |                      |                       |                       |                       |
-       |  Redirect to Google  |                       |                       |                       |
-       |<-------------------- |                       |                       |                       |
-       |                      |                       |                       |                       |
-       |  Google OAuth2       |                       |                       |                       |
-       |<-------------------->|                       |                       |                       |
-       |                      |                       |                       |                       |
-       |  Receive Token       |                       |                       |                       |
-       |--------------------> |                       |                       |                       |
-       |                      |                       |                       |                       |
-       |  Store User          |                       |                       |                       |
-       |--------------------> |                       |                       |                       |
-       |                      |                       |                       |                       |
-       |  Enter Transaction   |                       |                       |                       |
-       |--------------------> |                       |                       |                       |
-       |                      |  Store Transaction    |                       |                       |
-       |                      |-------------------->  |                       |                       |
-       |                      |                       |                       |                       |
-       |                      |                       |  Fetch Transaction    |                       |
-       |                      |                       |-------------------->  |                       |
-       |                      |                       |                       |                       |
-       |                      |                       |                       | Send Email            |
-       |                      |                       |                       |-------------------->  |
-       |                      |                       |                       |                       |
-       |                      |                       |                       |                       |
-       |                      |                       |                       |                       |
-```
+![System Design](img/designSistem.png)
 
 This setup and API documentation should help you get started with the project, run the necessary components, and understand the API structure and system design.
