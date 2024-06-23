@@ -20,16 +20,14 @@ Clone this repository to your local directory:
    cd email-api-levartech
    git clone https://github.com/irfanputranto/a4adf253695eae51e19d7b4552769759.git .
    ```
+### Using Docker
+- Docker: [Instal Docker](https://docs.docker.com/get-docker/)
+- Docker Compose: [Instal Docker Compose](https://docs.docker.com/compose/install/)
 
 Run Docker Compose:
    ```bash
    docker-compose up --build
    ```
-
-### Using Docker
-- Docker: [Instal Docker](https://docs.docker.com/get-docker/)
-- Docker Compose: [Instal Docker Compose](https://docs.docker.com/compose/install/)
-
 
 ### Run Composer
 
